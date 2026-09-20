@@ -1,0 +1,134 @@
+# smart cart application
+# with the use of functions , switch statment , conditional Statement ,
+# and main purpose behinde this activity is to use python list concept
+# with the real world case
+
+
+# create a data
+
+cart=[
+    {
+        "id":101,
+        "name":"Laptop",
+        "price":75000,
+        "quantity":1
+    },
+    {
+        "id":102,
+        "name":"TV",
+        "price":50000,
+        "quantity":5
+    },
+    {
+        "id":103,
+        "name":"Phone",
+        "price":25000,
+        "quantity":20
+    }
+]
+
+
+# 1 . View the Cart items
+
+def view_cart_item():
+    """
+    this function is use to show all the 
+    item witch present inside the cart.
+    and in this function i saw the concept like
+    len 
+    if condition
+    for loop
+    enumerate
+    """
+
+    if not cart:
+        print("There is no any item in your cart")
+        return 
+    else:
+        print(f"total products:{len(cart)}")
+        print()
+
+    # for index,product in enumerate(cart,start=1):
+    #     display_product(product,index)
+
+view_cart_item()
+
+
+# 2. add to product into a cart
+
+def add_cart_item():
+    """
+    this function is use to add items into 
+    the cart 
+    so for this function i used a append method of lists
+    """
+
+    product={
+        "id":104,
+        "name":"Tablet",
+        "price":20000,
+        "quantity":50
+    }
+
+    cart.append(product)
+
+    print(f"added product to the cart :  {product['name']}")
+    print(f"added product item quantity : {product['quantity']}")
+    print(f"added product item price : {product['price']}")
+
+
+add_cart_item()  
+
+
+# 3. add more than one item to the cart list
+
+def add_more_cart_item():
+    """
+    this function is used for to add more 
+    then one item to the cart 
+    so for implement this cincept 
+    i used extend method in list
+    """
+
+    products =[
+        {
+            "id":105,
+            "name":"webcam",
+            "price":3000,
+            "quantity":30
+        },
+        {
+            "id":106,
+            "name":"USB hub",
+            "price":2000,
+            "quantity":10
+        }
+    ]
+
+    cart.extend(products)
+
+    print(f"added multiple product : {products}")
+
+add_more_cart_item()    
+
+
+
+# 4 . undo last item to the cart
+
+def remove_last_item():
+    """
+    this function is used for remove the last item 
+    to the cart 
+    so for this i used pop() method of python list
+    """
+
+    if not cart:
+        print("there is no item present in cart")
+
+    else:
+
+        removed_item=cart.pop()
+
+        print(f"remove last product item to the cart is : {removed_item['name']}")    
+
+remove_last_item()        

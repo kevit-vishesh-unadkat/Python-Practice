@@ -150,7 +150,7 @@ def remove_last_item():
 
 remove_last_item()     
 
-
+# 5. remove product from the task.
 def remove_product():
     """
     this function is to remove a product from the cart
@@ -180,3 +180,54 @@ def remove_product():
         print("product not found")
 
 remove_product()
+
+# 6. view recent products
+
+def view_recent_product():
+    """
+    this function is to show only recent top 
+    three product from the cart
+    """
+    if not cart:
+        print("cart is empty")
+
+    recent_product=cart[-3:]
+
+    print("last three product")
+
+    for index , product in enumerate(
+        recent_product,
+        start=1
+    ):
+        display_product(product,index)
+
+view_recent_product()
+
+
+# search product
+
+def search_product():
+    """
+    this function is used to search a product
+    and it will provide  funcinality to user to search a product 
+    in cart
+    """
+
+    if not cart:
+        print("cart is empty")
+
+    product_name=input(
+        "enter a product name to search  :"
+    ).strip()
+
+    product_exist=any(
+        product["name"].lower()==product_name.lower()
+        for product in cart
+    )
+
+    if product_exist:
+        print("product exist in your cart")
+    else:
+        print("product not exist in your cart")
+
+search_product()

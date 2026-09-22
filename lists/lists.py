@@ -26,7 +26,24 @@ cart=[
         "quantity":20
     }
 ]
+def display_product(product, index=None):
+    """
+    Display one product.
+    """
 
+    if index is not None:
+        print(
+            f"{index}. "
+            f"{product['name']} | "
+            f"₹{product['price']} | "
+            f"Qty: {product['quantity']}"
+        )
+    else:
+        print(
+            f"{product['name']} | "
+            f"₹{product['price']} | "
+            f"Qty: {product['quantity']}"
+        )
 
 # 1 . View the Cart items
 
@@ -131,4 +148,35 @@ def remove_last_item():
 
         print(f"remove last product item to the cart is : {removed_item['name']}")    
 
-remove_last_item()        
+remove_last_item()     
+
+
+def remove_product():
+    """
+    this function is to remove a product from the cart
+    to implement this functinality use remove mathod of 
+    lists class
+    """
+
+    if not cart:
+        print("There is no any item in cart")
+
+    product_name=input("enter product name you want to remove : ").strip()
+
+    found_product=None
+
+    for product in cart:
+        if product["name"].lower()==product_name.lower():
+            found_product=product
+            break
+
+    if found_product is not None:
+        cart.remove(found_product)
+        print(
+            f"{found_product['name']} "
+            f"removed from cart."
+        )
+    else:
+        print("product not found")
+
+remove_product()

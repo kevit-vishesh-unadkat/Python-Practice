@@ -202,3 +202,32 @@ def view_recent_product():
         display_product(product,index)
 
 view_recent_product()
+
+
+# search product
+
+def search_product():
+    """
+    this function is used to search a product
+    and it will provide  funcinality to user to search a product 
+    in cart
+    """
+
+    if not cart:
+        print("cart is empty")
+
+    product_name=input(
+        "enter a product name to search  :"
+    ).strip()
+
+    product_exist=any(
+        product["name"].lower()==product_name.lower()
+        for product in cart
+    )
+
+    if product_exist:
+        print("product exist in your cart")
+    else:
+        print("product not exist in your cart")
+
+search_product()

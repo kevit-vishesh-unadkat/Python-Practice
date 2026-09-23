@@ -252,3 +252,30 @@ def reverse_list():
 
 
 reverse_list()
+
+
+# Copy Cart
+def copy_cart():
+    """
+    this functinon is used to copy a cart 
+    for this use copy method
+    """
+
+    if not cart:
+        print("your cart is empty")
+
+    backup_cart=cart.copy()
+
+    print("print copied successfully")
+
+    print("\nOriginal Cart:")
+
+    for product in cart:
+        display_product(product)
+
+    print("\nCopyCart")
+
+    for product in backup_cart:
+        display_product(product)
+
+copy_cart()

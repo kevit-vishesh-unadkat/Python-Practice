@@ -231,3 +231,24 @@ def search_product():
         print("product not exist in your cart")
 
 search_product()
+
+
+# count product
+
+
+# reverse list
+
+def reverse_list():
+    """
+    this function is used to reverse a list
+    for this use reverse method of the list
+    """
+
+    if not cart:
+        print("your cart is empty")
+    cart.reverse()
+
+    print("cart order reversed")
+
+
+reverse_list()

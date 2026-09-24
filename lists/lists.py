@@ -279,3 +279,49 @@ def copy_cart():
         display_product(product)
 
 copy_cart()
+
+
+#validate cart
+
+def validate_cart():
+    """
+    validate the cart 
+    using (all) inbuilt function concept
+    """
+
+    if not cart:
+        print("your cart is empty")
+
+    valid=all(
+        product['quantity']>0
+        for product in cart
+    )
+
+    if valid:
+        print("cart is valid")
+
+    else:
+        print("cart contain invalid quantities")
+
+validate_cart()
+
+
+# calculate a cart total
+
+def calculate_total():
+    """
+    this function is used to calculate total 
+    price of cart
+    """
+
+    if not cart:
+        print("your cart is empty")
+
+    total_price=sum(
+        product['price']*product['quantity']
+        for product in cart
+    )
+
+    print(f"Cart Total :{total_price}")
+
+calculate_total()

@@ -325,3 +325,32 @@ def calculate_total():
     print(f"Cart Total :{total_price}")
 
 calculate_total()
+
+
+# cheapest and most expensive item in the cart
+
+def show_price_extream():
+    """
+    this function is to show most expensive item
+    and most cheapest item 
+    for this function use min , max 
+    """
+
+    if not cart:
+        print("your cart is empty")
+
+    cheapest_item=min(
+        cart,
+        key=lambda product : product['price']
+    )
+
+    expensive_item=max(
+        cart,
+        key=lambda product : product['price']
+    )
+
+    print(f"cheapest item : {cheapest_item}")
+
+    print(f"expensive item : {expensive_item}")
+
+show_price_extream()

@@ -354,3 +354,29 @@ def show_price_extream():
     print(f"expensive item : {expensive_item}")
 
 show_price_extream()
+
+# filter expensive product
+
+def show_expensive_product():
+    """
+    this function is used to show expensive item in cart
+    show we fix a threshold as 50000 andmore then 50000
+    this items are expensive category
+    """
+
+    if not cart:
+        print("your cart is empty")
+
+    expensive_items=[product for product in cart if product['price']>=50000]
+
+    if not expensive_items:
+        print("no any product above 50,000")
+
+    else:
+        print("products above 50,000")
+
+        for product in expensive_items:
+            display_product(product)
+            
+
+show_expensive_product()

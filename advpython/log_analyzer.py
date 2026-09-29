@@ -6,9 +6,11 @@ from collections import Counter
 LOG_FILE = "mysterybox.log"
 
 
-# ============================================================
-# 1. REGEX PATTERNS
-# ============================================================
+
+# 1) in this first section write a code for regex pattern 
+# witch petterns are valid or witch petterns are not valid.
+
+
 
 # Valid log line
 VALID_LOG_PATTERN = re.compile(
@@ -64,9 +66,7 @@ USER_PATTERN = re.compile(
 )
 
 
-# ============================================================
 # 2. ANALYZER
-# ============================================================
 
 def analyze_log(filename):
     total_lines = 0
@@ -91,9 +91,9 @@ def analyze_log(filename):
             total_lines += 1
             line = raw_line.strip()
 
-            # ------------------------------------------------
+           
             # Validate log line
-            # ------------------------------------------------
+           
             match = VALID_LOG_PATTERN.fullmatch(line)
 
             if not match:
@@ -106,9 +106,9 @@ def analyze_log(filename):
             level = match.group("level")
             fields_text = match.group("fields")
 
-            # ------------------------------------------------
+            
             # Extract key=value fields
-            # ------------------------------------------------
+            
             fields = {}
 
             for field_match in FIELD_PATTERN.finditer(fields_text):
@@ -118,10 +118,10 @@ def analyze_log(filename):
 
                 fields[key] = value
 
-            # ------------------------------------------------
+            
             # Make sure there is at least one valid key=value
             # field.
-            # ------------------------------------------------
+            
             if not fields:
                 # Technically this line matched the outer
                 # structure but contains no key=value fields.
@@ -137,20 +137,20 @@ def analyze_log(filename):
 
             parsed_records.append(record)
 
-            # ------------------------------------------------
+            
             # Count log levels
-            # ------------------------------------------------
+          
             level_counts[level] += 1
 
-            # ------------------------------------------------
+           
             # Count unique users
-            # ------------------------------------------------
+            
             if "user" in fields:
                 users.add(fields["user"])
 
-            # ------------------------------------------------
+            
             # Suspicious login detection
-            # ------------------------------------------------
+            
             if SUSPICIOUS_LOGIN_PATTERN.search(line):
 
                 suspicious_login_count += 1
@@ -161,18 +161,18 @@ def analyze_log(filename):
                     user = user_match.group("user").strip()
                     failed_login_users[user] += 1
 
-            # ------------------------------------------------
+            
             # Suspicious downloads
-            # ------------------------------------------------
+           
             if (
                 fields.get("action") == "download"
                 and SUSPICIOUS_DOWNLOAD_PATTERN.search(line)
             ):
                 suspicious_download_count += 1
 
-            # ------------------------------------------------
+            
             # Mask card numbers
-            # ------------------------------------------------
+            
             masked_line, count = CARD_PATTERN.subn(
                 "****MASKED****",
                 line
@@ -200,71 +200,3 @@ def analyze_log(filename):
         "card_numbers_masked": card_numbers_masked,
         "records": parsed_records
     }
-
-
-# ============================================================
-# 3. REPORT
-# ============================================================
-
-def print_report(result):
-
-    print("\n" + "=" * 50)
-    print("        MYSTERYBOX LOG ANALYZER")
-    print("=" * 50)
-
-    print(f"Total lines              : {result['total_lines']}")
-    print(f"Valid lines              : {result['valid_lines']}")
-    print(f"Invalid lines            : {result['invalid_lines']}")
-
-    print("\n--- Log Levels ---")
-    print(f"INFO                     : {result['level_counts']['INFO']}")
-    print(f"WARNING                  : {result['level_counts']['WARNING']}")
-    print(f"ERROR                    : {result['level_counts']['ERROR']}")
-
-    print("\n--- User Activity ---")
-    print(f"Unique application users : {len(result['unique_users'])}")
-
-    print("\n--- Suspicious Activity ---")
-    print(
-        f"Suspicious login records : "
-        f"{result['suspicious_login_count']}"
-    )
-
-    print(
-        f"Suspicious downloads     : "
-        f"{result['suspicious_download_count']}"
-    )
-
-    print("\n--- Failed Login Users ---")
-
-    if result["repeated_failed_users"]:
-        for user, count in result["repeated_failed_users"].items():
-            print(f"{user}: {count} failed attempts")
-    else:
-        print("None")
-
-    print("\n--- Sensitive Data ---")
-    print(
-        f"Card numbers masked      : "
-        f"{result['card_numbers_masked']}"
-    )
-
-    print("=" * 50)
-
-
-# ============================================================
-# 4. MAIN
-# ============================================================
-
-def main():
-
-    try:
-        result = analyze_log(LOG_FILE)
-        print_report(result)
-
-    except FileNotFoundError:
-        print(f"Error: '{LOG_FILE}' was not found.")
-
-
-if __name__ == "__main__":
-    main()

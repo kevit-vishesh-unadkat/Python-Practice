@@ -24,7 +24,7 @@ VALID_LOG_PATTERN = re.compile(
 )
 
 
-# Individual key=value field
+# Individual key=value field  to extract key -value pair 
 FIELD_PATTERN = re.compile(
     r"(?P<key>[A-Za-z_][A-Za-z0-9_]*)="
     r"(?P<value>[^|]+)"
@@ -67,6 +67,8 @@ USER_PATTERN = re.compile(
 
 
 # 2. ANALYZER
+
+# this 2 part contain all logic of over console based application 
 
 def analyze_log(filename):
     total_lines = 0
@@ -200,3 +202,71 @@ def analyze_log(filename):
         "card_numbers_masked": card_numbers_masked,
         "records": parsed_records
     }
+
+
+# 3. REPORT
+
+# and this 3rd part is contain a User Interface for console based application 
+
+def print_report(result):
+
+    print("\n" + "=" * 50)
+    print("        MYSTERYBOX LOG ANALYZER")
+    print("=" * 50)
+
+    print(f"Total lines              : {result['total_lines']}")
+    print(f"Valid lines              : {result['valid_lines']}")
+    print(f"Invalid lines            : {result['invalid_lines']}")
+
+    print("\n--- Log Levels ---")
+    print(f"INFO                     : {result['level_counts']['INFO']}")
+    print(f"WARNING                  : {result['level_counts']['WARNING']}")
+    print(f"ERROR                    : {result['level_counts']['ERROR']}")
+
+    print("\n--- User Activity ---")
+    print(f"Unique application users : {len(result['unique_users'])}")
+
+    print("\n--- Suspicious Activity ---")
+    print(
+        f"Suspicious login records : "
+        f"{result['suspicious_login_count']}"
+    )
+
+    print(
+        f"Suspicious downloads     : "
+        f"{result['suspicious_download_count']}"
+    )
+
+    print("\n--- Failed Login Users ---")
+
+    if result["repeated_failed_users"]:
+        for user, count in result["repeated_failed_users"].items():
+            print(f"{user}: {count} failed attempts")
+    else:
+        print("None")
+
+    print("\n--- Sensitive Data ---")
+    print(
+        f"Card numbers masked      : "
+        f"{result['card_numbers_masked']}"
+    )
+
+    print("=" * 50)
+
+
+# 4. MAIN
+
+# and this 4th part is our herat of our app because this is a starting point of our console based application
+
+def main():
+
+    try:
+        result = analyze_log(LOG_FILE)
+        print_report(result)
+
+    except FileNotFoundError:
+        print(f"Error: '{LOG_FILE}' was not found.")
+
+
+if __name__ == "__main__":
+    main()

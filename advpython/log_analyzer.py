@@ -42,7 +42,7 @@ CARD_PATTERN = re.compile(r"\b\d{16}\b")
 #   .zip OR .exe OR .sh
 SUSPICIOUS_DOWNLOAD_PATTERN = re.compile(
     r"file=[^|]*(?:secret|backup|admin|password)[^|]*"
-    r"\.(?:zip|exe|sh)\b",
+    r"\.(?:zip|exe|sh)[$]",
     re.IGNORECASE
 )
 

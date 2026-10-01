@@ -15,7 +15,7 @@
 2026-09-28 09:24:19 | ERROR   | user=admin | action=login_failed | ip=192.168.1.100
 2026-09-28 09:25:04 | INFO    | user=grace | action=download | file=monthly_report.csv
 2026-09-28 09:25:44 | INFO    | user=henry | action=download | file=admin_tools.exe
-2026-09-28 09:26:10 | WARNING | user=grace | action=download | file=backup_data.zip
+2026-09-28 09:26:10 | WARNING | user=grace | action=download | file=backup_data.zip.txt
 2026-09-28 09:26:52 | INFO    | user=system | action=health_check
 2026-09-28 09:27:15 | ERROR   | user=unknown | action=api_call | endpoint=/api/v1/status
 2026-09-28 09:27:49 | INFO    | user=alice | action=login_failed | ip=192.168.1.15
